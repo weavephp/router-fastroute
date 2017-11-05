@@ -17,7 +17,7 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	 *
 	 * @var \FastRoute\Dispatcher
 	 */
-	protected $_dispatcher;
+	protected $dispatcher;
 
 	/**
 	 * Using the provided callable, configure Aura.Router's routes.
@@ -30,7 +30,7 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	 */
 	public function configureRoutes(callable $routeProvider)
 	{
-		$this->_dispatcher = \FastRoute\simpleDispatcher($routeProvider);
+		$this->dispatcher = \FastRoute\simpleDispatcher($routeProvider);
 	}
 
 	/**
@@ -42,7 +42,7 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	 */
 	public function route(Request $request)
 	{
-		$routeInfo = $this->_dispatcher->dispatch(
+		$routeInfo = $this->dispatcher->dispatch(
 			$request->getMethod(),
 			$request->getUri()->getPath()
 		);
