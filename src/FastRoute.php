@@ -1,14 +1,14 @@
 <?php
 declare(strict_types = 1);
 /**
- * Weave Router Adaptor for Aura.Router.
+ * Weave Router Adaptor for FastRoute.
  */
 namespace Weave\Router\FastRoute;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
- * Weave Router Adaptor for Aura.Router.
+ * Weave Router Adaptor for FastRoute.
  */
 class FastRoute implements \Weave\Router\RouterAdaptorInterface
 {
@@ -20,9 +20,7 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	protected $dispatcher;
 
 	/**
-	 * Using the provided callable, configure Aura.Router's routes.
-	 *
-	 * The routeProvider is called with Aura.Router's Map instance as the parameter.
+	 * Using the provided callable, configure the routes.
 	 *
 	 * @param callable $routeProvider The method to use to configure the routes.
 	 *
@@ -36,11 +34,11 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	/**
 	 * Route the supplied request.
 	 *
-	 * @param Request $request The PSR7 request to attempt to route.
+	 * @param Request &$request The PSR7 request to attempt to route.
 	 *
-	 * @return false|array[Request, string|callable]
+	 * @return false|string|callable
 	 */
-	public function route(Request $request)
+	public function route(Request &$request)
 	{
 		$routeInfo = $this->dispatcher->dispatch(
 			$request->getMethod(),
@@ -54,6 +52,6 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 		foreach ($routeInfo[2] as $key => $val) {
 			$request = $request->withAttribute($key, $val);
 		}
-		return [$request, $routeInfo[1]];
+		return $routeInfo[1];
 	}
 }
