@@ -23,9 +23,9 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	 *
 	 * @param callable $routeProvider The method to use to configure the routes.
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function configureRoutes(callable $routeProvider)
+	public function configureRoutes(callable $routeProvider): void
 	{
 		$this->dispatcher = \FastRoute\simpleDispatcher($routeProvider);
 	}
@@ -35,9 +35,9 @@ class FastRoute implements \Weave\Router\RouterAdaptorInterface
 	 *
 	 * @param Request &$request The PSR7 request to attempt to route.
 	 *
-	 * @return false|string|callable
+	 * @return false|string|callable|array
 	 */
-	public function route(Request &$request)
+	public function route(Request &$request): false|string|callable|array
 	{
 		$routeInfo = $this->dispatcher->dispatch(
 			$request->getMethod(),
